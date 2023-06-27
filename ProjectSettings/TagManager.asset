@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Hole
+  - Enemy
+  - Inactive_enemy
+  - FxTemporaire
+  - SmokeEnemy
+  - FlashEnemy
+  - HealFriend
+  - PoisonedEnemy
+  - ElectricEnemy
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: 01_Sky
+    uniqueID: 3353390363
+    locked: 0
+  - name: 02_Forest
+    uniqueID: 3031884315
+    locked: 0
+  - name: 03_Forest
+    uniqueID: 984633653
+    locked: 0
+  - name: 04_Forest
+    uniqueID: 3653582127
+    locked: 0
+  - name: 05_Forest
+    uniqueID: 2266628987
+    locked: 0
+  - name: 06_Particles
+    uniqueID: 259815843
+    locked: 0
+  - name: 07_Forest
+    uniqueID: 1654161015
+    locked: 0
+  - name: 08_Particles
+    uniqueID: 1812655397
+    locked: 0
+  - name: 09_Bushes
+    uniqueID: 1312254731
+    locked: 0
+  - name: 10_Mist
+    uniqueID: 2878140985
+    locked: 0
+  - name: Game
+    uniqueID: 3305476921
+    locked: 0
+  - name: Effect
+    uniqueID: 2223683225
+    locked: 0
