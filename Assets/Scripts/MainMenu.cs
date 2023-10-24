@@ -12,7 +12,6 @@ public class MainMenu : MonoBehaviour
     public GameObject scoreDisplay;
     public GameObject healthDisplay;
     public GameObject bg;
-    public screenScaler screenScaler;
     private bool isReadyforGame = false;
 
     // Start is called before the first frame update
@@ -93,6 +92,7 @@ public class MainMenu : MonoBehaviour
         _pauseMenu.SetActive(true);
         _pausebutton.SetActive(false);
         audioSource.Pause();
+
 
     }
 

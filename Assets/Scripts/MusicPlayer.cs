@@ -14,17 +14,8 @@ public class MusicPlayer : MonoBehaviour
 
     void Update()
     {
-        // if (Input.GetKeyDown(KeyCode.Escape) || _pauseMenu.activeInHierarchy)
-        // {
-        //     if (Time.timeScale == 0f)
-        //     {
-        //         audioSource.Pause();
-        //     }
-        //     else
-        //     {
-        //         audioSource.Play();
-        //     }
-        // }
+
+
     }
 
 

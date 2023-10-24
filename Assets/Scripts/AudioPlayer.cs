@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class AudioPlayer : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class AudioPlayer : MonoBehaviour
 
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        audioSource = GetComponent <AudioSource>();
         // Randomly select the first track in the array
         currentTrackIndex = Random.Range(0, audioTracks.Length);
         PlayTrack(currentTrackIndex);
@@ -20,16 +21,18 @@ public class AudioPlayer : MonoBehaviour
         // Add listeners to the previous and next buttons
         prevButton.onClick.AddListener(PlayPrevTrack);
         nextButton.onClick.AddListener(PlayNextTrack);
+
+        // Start the coroutine for auto track switching
+
     }
 
     private void Update()
     {
-        // Switch to the next track when the current one ends
-        if (!audioSource.isPlaying && Time.timeScale != 0.0f)
-        {
-            currentTrackIndex = (currentTrackIndex + 1) % audioTracks.Length;
-            PlayTrack(currentTrackIndex);
-        }
+        // Check if the track has finished playing
+        //if (audioSource.time >= audioSource.clip.length && Time.timeScale != 0.0f)
+        //{
+            //PlayNextTrack();
+        //}
     }
 
     private void PlayTrack(int index)
@@ -57,4 +60,6 @@ public class AudioPlayer : MonoBehaviour
         // Play the next track
         PlayTrack(nextTrackIndex);
     }
+
+   
 }
