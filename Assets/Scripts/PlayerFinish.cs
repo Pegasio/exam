@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
 
 public class PlayerFinish : MonoBehaviour
 {
+    private SaveLoadManager saveLoadManager;
+
     private Player player;
     public GameObject bg;
     [SerializeField] private GameObject _winText;
@@ -18,7 +22,7 @@ public class PlayerFinish : MonoBehaviour
 
     public AudioSource audioSource;
 
-
+    public static bool end;
 
 
 
@@ -34,6 +38,7 @@ public class PlayerFinish : MonoBehaviour
     void Start()
     {
         player = GameObject.FindObjectOfType<Player>();
+        end = false;
     }
 
     void Update()
@@ -55,8 +60,23 @@ public class PlayerFinish : MonoBehaviour
 
     private void HandleEndGame(GameObject endTextObject)
     {
+        if (player.score > YandexGame.savesData.progress)
+        {
+
+            YandexGame.savesData.progress = player.score;
+
+            //Debug.Log(saveLoadManager.progress);
+            //YandexGame.savesData.progress = saveLoadManager.progress;
+
+            // Теперь остается сохранить данные
+            YandexGame.SaveProgress();
+            //saveLoadManager.Save();
+
+        }
+
+        end = true;
         audioSource.Stop();
-        StartCoroutine(SlowMoTransition());
+        Time.timeScale = 0.0f;
         bg.SetActive(true);
 
         scoreBar.gameObject.SetActive(false);
@@ -95,7 +115,8 @@ public class PlayerFinish : MonoBehaviour
             Time.timeScale = newTimeScale;
             yield return null;
         }
-
+        
         Time.timeScale = 0.0f;
+        
     }
 }

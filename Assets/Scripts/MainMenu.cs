@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,12 +8,15 @@ public class MainMenu : MonoBehaviour
 {
     Player player;
     public AudioSource audioSource;
+    private float audioPlaybackPosition;
     public GameObject scoreBar;
     public GameObject healthBar;
     public GameObject scoreDisplay;
     public GameObject healthDisplay;
     public GameObject bg;
     private bool isReadyforGame = false;
+    private bool isPaused = false;
+    bool end = PlayerFinish.end;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +25,12 @@ public class MainMenu : MonoBehaviour
         {
             player = FindObjectOfType<Player>();
             isReadyforGame = true;
+            end = false;
+        }
+
+        else
+        {
+            end = false;
         }
     }
 
@@ -37,7 +47,7 @@ public class MainMenu : MonoBehaviour
                     {
                         PauseButton();
                     }
-                    else if(Time.timeScale == 0f)
+                    else if (Time.timeScale == 0f)
                     {
                         ResumeButton();
                     }
@@ -81,8 +91,9 @@ public class MainMenu : MonoBehaviour
 
     public void PauseButton()
     {
+        isPaused = true;
+
         bg.SetActive(true);
-        Time.timeScale = 0.0f;
         scoreBar.gameObject.SetActive(false);
         healthBar.gameObject.SetActive(false);
 
@@ -91,12 +102,35 @@ public class MainMenu : MonoBehaviour
 
         _pauseMenu.SetActive(true);
         _pausebutton.SetActive(false);
+        audioPlaybackPosition = audioSource.time;
         audioSource.Pause();
+        Time.timeScale = 0.0f;
+
 
 
     }
 
     public void ResumeButton()
+    {
+        isPaused = false;
+
+        bg.SetActive(false);
+        scoreBar.gameObject.SetActive(true);
+        healthBar.gameObject.SetActive(true);
+
+        scoreDisplay.SetActive(true);
+        healthDisplay.SetActive(true);
+
+
+        _pauseMenu.SetActive(false);
+        _pausebutton.SetActive(true);
+        audioSource.time = audioPlaybackPosition;
+        audioSource.UnPause();
+        Time.timeScale = 1.0f;
+
+    }
+
+    public void StartNextSong()
     {
         bg.SetActive(false);
         scoreBar.gameObject.SetActive(true);
@@ -105,10 +139,51 @@ public class MainMenu : MonoBehaviour
         scoreDisplay.SetActive(true);
         healthDisplay.SetActive(true);
 
-        Time.timeScale = 1.0f;
+
         _pauseMenu.SetActive(false);
         _pausebutton.SetActive(true);
+        audioSource.time = 0.0f;
         audioSource.Play();
+        Time.timeScale = 1.0f;
+    }
+
+    private void OnApplicationFocus(bool focusStatus)
+    {
+        if (!focusStatus) // Если игрок выходит из вкладки с игрой то:
+        {
+            if (!isPaused) // Если игрок не поставил игру на паузу самостоятельно - ставим на паузу
+            {
+                isPaused = true;
+                audioPlaybackPosition = audioSource.time;
+                audioSource.Pause();
+                Time.timeScale = 0.0f;
+
+            }
+
+            else // иначе просто отсавляем паузу
+            {
+                PauseButton();
+            }
+
+
+        }
+
+        else // если игрок возвращается во вкладку с игрой то:
+        {
+            if (!end && SceneManager.GetActiveScene().name == "Game") // если игра не окончена то:
+            {
+                ResumeButton();
+            }
+            
+            else if (SceneManager.GetActiveScene().name == "MainMenu")
+            {
+                isPaused = false;
+                audioSource.time = audioPlaybackPosition;
+                audioSource.UnPause();
+                Time.timeScale = 1.0f;
+            }
+        }
+
 
     }
 }

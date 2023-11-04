@@ -31,7 +31,7 @@ public class AudioPlayer : MonoBehaviour
         // Check if the track has finished playing
         //if (audioSource.time >= audioSource.clip.length && Time.timeScale != 0.0f)
         //{
-            //PlayNextTrack();
+          //  PlayNextTrack();
         //}
     }
 
@@ -41,6 +41,7 @@ public class AudioPlayer : MonoBehaviour
         audioSource.clip = audioTracks[index];
         // Play the new track
         audioSource.Play();
+        
         // Update the current track index
         currentTrackIndex = index;
     }
@@ -57,6 +58,7 @@ public class AudioPlayer : MonoBehaviour
     {
         // Calculate the index of the next track
         int nextTrackIndex = (currentTrackIndex + 1) % audioTracks.Length;
+        
         // Play the next track
         PlayTrack(nextTrackIndex);
     }

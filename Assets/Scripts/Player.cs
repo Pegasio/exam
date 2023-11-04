@@ -197,7 +197,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            scoreBar.fillRect.GetComponent<Image>().color = Color.white;
+            scoreBar.fillRect.GetComponent<Image>().color = Color.red;
         }
     }
 }
