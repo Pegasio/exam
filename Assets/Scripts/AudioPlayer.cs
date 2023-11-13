@@ -5,7 +5,7 @@ using System.Collections;
 public class AudioPlayer : MonoBehaviour
 {
     public AudioClip[] audioTracks;
-    private AudioSource audioSource;
+    public AudioSource audioSource;
     private int currentTrackIndex;
 
     public Button prevButton;
